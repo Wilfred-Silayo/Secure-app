@@ -81,7 +81,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 radius: 50,
                 backgroundImage: _profilePicture != null
                     ? FileImage(File(_profilePicture!))
-                    : const AssetImage('assets/images/default_profile.png')
+                    : const AssetImage('assets/launcher_icon.jpg')
                         as ImageProvider, // Default image
                 child: _profilePicture == null
                     ? const Icon(Icons.add_a_photo, color: Colors.white)

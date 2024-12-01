@@ -74,14 +74,14 @@ class AuthNotifier extends StateNotifier<bool> {
           credentials['username']!.isEmpty ||
           credentials['password'] == null ||
           credentials['password']!.isEmpty) {
-        showSnackBar(context, 'Please register first before using biometrics');
+        showSnackBar(context, 'Please register first.');
 
         return false;
       }
-      return username == credentials[username] &&
-          password == credentials[password];
+      return username == credentials['username'] &&
+          password == credentials['password'];
     } catch (e) {
-      print('Biometric authentication error: $e');
+      print('Authentication error: $e');
       return false;
     }
   }
