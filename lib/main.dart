@@ -21,9 +21,10 @@ class MyApp extends ConsumerStatefulWidget {
   ConsumerState<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppStat
-  void initState extends ConsumerState<MyApp> with WidgetsBindingObserver {
-  @overridee() {
+class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
+ 
+  @override
+  void initState () {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
   }

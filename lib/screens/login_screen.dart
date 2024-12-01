@@ -44,6 +44,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           .read(authProvider.notifier)
           .checkCredentials(context, username, password);
 
+      _usernameController.text='';
+      _passwordController.text='';
+
       if (credentialsValid) {
         showSnackBar(context, 'Login Successful with Credentials');
         Navigator.pushReplacement(

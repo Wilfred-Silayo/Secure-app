@@ -3,6 +3,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:flutter/material.dart';
 import '../utils/snackbar.dart';
 import './storage_services.dart';
+import 'package:flutter/services.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, bool>((ref) {
   return AuthNotifier();
@@ -12,6 +13,15 @@ class AuthNotifier extends StateNotifier<bool> {
   AuthNotifier() : super(false);
 
   final LocalAuthentication _localAuth = LocalAuthentication();
+
+  Future<bool> hasBiometrics() async {
+    try {
+      return await _localAuth.canCheckBiometrics;
+    } on PlatformException catch (e) {
+      print(e);
+      return false;
+    }
+  }
 
   // Function to authenticate using biometric
   Future<bool> authenticateWithBiometrics(BuildContext context) async {
@@ -27,7 +37,10 @@ class AuthNotifier extends StateNotifier<bool> {
 
         return false;
       }
-
+      final isAvailable = await hasBiometrics();
+      if (!isAvailable) {
+        return false;
+      }
       bool isAuthenticated = await _localAuth.authenticate(
         localizedReason: 'Please authenticate to access the app',
         options: const AuthenticationOptions(biometricOnly: true),
